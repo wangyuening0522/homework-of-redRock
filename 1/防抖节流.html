@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" />
+    <button class="b1">我是防抖</button>
+    <button class="b2">我是节流</button>
+    <p class="output"></p>
+  </body>
+  <script>
+    let btn1 = document.querySelector(".b1");
+    let input = document.querySelector("input");
+    let btn2 = document.querySelector(".b2");
+    let output = document.querySelector(".output");
+    // console.log(input);
+    function onInputChange() {
+      const inputVal = input.value;
+      output.textContent = "您输入的内容是：" + inputVal;
+    }
+    function throttle(fun, delay) {
+      let lastExceTime = 0;
+      return function () {
+        const now = Date.now();
+        if (now - lastExceTime >= delay) {
+          fun();
+          lastExceTime = now;
+        }
+      };
+    }
+    const throttleOnInputChange = throttle(onInputChange, 500);
+    input.addEventListener("input", throttleOnInputChange);
+    function debounce(fn, delay = 300) {
+      let timer;
+      return function () {
+        clearTimeout(timer);
+        timer = setTimeout((...args) => {
+          fn(this, args);
+        }, delay);
+      };
+    }
+
+    btn1.addEventListener(
+      "click",
+      debounce(function () {
+        let a = input.value;
+        console.log("我是防抖的内容" + a);
+      })
+    );
+    // btn2.addEventListener('click',throttle(function(){
+    //     // let b=input.value;
+    //     console.log("我是节流的内容");
+    // }),1000);
+  </script>
+</html>
