@@ -1,2 +1,2 @@
 # homework-of-redRock
-![Static Badge](https://img.shields.io/badge/license%2CMIT%2Cblue)
+![Static Badge](https://img.shields.io/badge/license-MIT-blue)
